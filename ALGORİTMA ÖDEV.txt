@@ -1,0 +1,380 @@
+import os
+
+def Zeller(gun, ay, yil):  # Zeller yöntemi ile yılın başlangıç gününü buluyoruz
+    if ay == 1:
+        ay = 13
+        yil -= 1
+    if ay == 2:
+        ay = 14
+        yil -= 1
+    q = gun
+    m = ay
+    k = yil % 100
+    j = yil // 100
+    h = q + 13 * (m + 1) // 5 + k + k // 4 + j // 4 + 5 * j
+    h = h % 7
+    return h
+
+
+def subatkaccekiyor(g):  # Şubat ayının 28 mi 29 mu çektiğini öğrenmek için fonksiyon
+    return (g % 4 == 0 and g % 100 != 0) or (g % 400 == 0)
+
+def takvim_olustur(b, c, d):  # Takvimi ekrana yazdırmak için fonksiyon
+    aylar = ["", "OCAK", "SUBAT", "MART", "NISAN", "MAYIS", "HAZIRAN", "TEMMUZ", "AGUSTOS", "EYLUL", "EKIM", "KASIM", "ARALIK"]  # Ayları yazma
+    
+    print(f"\t\t     {d} YILI TAKVIMI")
+    print("|-----------------------------------------------------|")
+    
+    for z in range(1, 13):
+        print(f"\n\n\n\t  {aylar[z]}")
+        print("---------------------------")
+        print("Pzt Sal Car Per Cum \033[31mCmt\033[0m \033[31mPaz\033[0m")  # Günleri yazma
+        print()
+        
+        while True:
+            if b == 2:  # Zeller ile çıkan sayı 2 ise (pazartesi) burayı kullanacak
+                for i in range(1, 6):
+                    print(f"{i}   ", end="")
+                print("\033[31m6\033[0m    \033[31m7\033[0m   ")
+                print()
+                for f in range(8, 10):
+                    print(f"{f}   ", end="")
+                print("10  11  12  \033[31m13\033[0m  \033[31m14\033[0m   ")
+                print()
+                for f in range(15, 20):
+                    print(f"{f}  ", end="")
+                print("\033[31m20\033[0m  \033[31m21\033[0m   ")
+                print()
+                for f in range(22, 27):
+                    print(f"{f}  ", end="")
+                print("\033[31m27\033[0m  \033[31m28\033[0m  ")
+                print()
+
+                if z == 2:  # Sadece şubat ayı için
+                    if c == 1:  # subatkaccekiyor fonksiyonunun sonucu doğru ise 29. günü ekleyecek sonuç yanlış ise 28'de bitirecek
+                        print("29  ")
+                        b += 1
+                        break
+                    b = b
+                    break
+                print("29  30  ")  # 30 gün çeken aylar için
+
+                if z in [1, 3, 5, 7, 8, 10, 12]:  # 31 gün çeken aylar için
+                    print("31  ")
+                    b += 3
+                else:
+                    b += 2
+                break
+
+            if b == 3:  # Zeller ile çıkan sayı 3 ise (salı) burayı kullanacak
+                print("    ", end="")
+                for i in range(1, 5):
+                    print(f"{i}   ", end="")
+                print("\033[31m5\033[0m   \033[31m6\033[0m   ")
+                print()
+                for f in range(7, 10):
+                    print(f"{f}   ", end="")
+                print("10  11  \033[31m12\033[0m  \033[31m13\033[0m   ")
+                print()
+                for f in range(14, 19):
+                    print(f"{f}  ", end="")
+                print("\033[31m19\033[0m  \033[31m20\033[0m  ")
+                print()
+                for f in range(21, 26):
+                    print(f"{f}  ", end="")
+                print("\033[31m26\033[0m  \033[31m27\033[0m   ")
+                print()
+                print("28  ")
+
+                if z == 2:
+                    if c == 1:
+                        print("29  ")
+                        b += 1
+                        break
+                    b = b
+                    break
+                print("29  30  ")
+
+                if z in [1, 3, 5, 7, 8, 10, 12]:
+                    print("31  ")
+                    b += 3
+                else:
+                    b += 2
+                break
+
+            if b == 4:  # Zeller ile çıkan sayı 4 ise (Çarşamba) burayı kullanacak
+                print("        ", end="")
+                for i in range(1, 4):
+                    print(f"{i}   ", end="")
+                print("\033[31m4\033[0m   \033[31m5\033[0m   ")
+                print()
+                for f in range(6, 10):
+                    print(f"{f}   ", end="")
+                print("10  \033[31m11\033[0m  \033[31m12\033[0m  ")
+                print()
+                for f in range(13, 18):
+                    print(f"{f}  ", end="")
+                print("\033[31m18\033[0m  \033[31m19\033[0m  ")
+                print()
+                for f in range(20, 25):
+                    print(f"{f}  ", end="")
+                print("\033[31m25\033[0m  \033[31m26\033[0m  ")
+                print()
+                print("27  28  ")
+
+                if z == 2:
+                    if c == 1:
+                        print("29  ")
+                        b += 1
+                        break
+                    b = b
+                    break
+                print("29  30  ")
+
+                if z in [1, 3, 5, 7, 8, 10, 12]:
+                    print("31  ")
+                    b -= 4
+                else:
+                    b += 2
+                break
+
+            if b == 5:  # Zeller ile çıkan sayı 5 ise (perşembe) burayı kullanacak
+                print("            ", end="")
+                for i in range(1, 3):
+                    print(f"{i}   ", end="")
+                print("\033[31m3\033[0m   \033[31m4\033[0m   ")
+                print()
+                for f in range(5, 10):
+                    print(f"{f}   ", end="")
+                print("\033[31m10\033[0m  \033[31m11\033[0m  ")
+                print()
+                for f in range(12, 17):
+                    print(f"{f}  ", end="")
+                print("\033[31m17\033[0m  \033[31m18\033[0m  ")
+                print()
+                for f in range(19, 24):
+                    print(f"{f}  ", end="")
+                print("\033[31m24\033[0m  \033[31m25\033[0m  ")
+                print()
+                print("26  27  28  ")
+
+                if z == 2:
+                    if c == 1:
+                        print("29  ")
+                        b += 1
+                        break
+                    b = b
+                    break
+                print("29  30  ")
+
+                if z in [1, 3, 5, 7, 8, 10, 12]:
+                    print("\033[31m31\033[0m  ")
+                    b -= 4
+                else:
+                    b -= 5
+                break
+
+            if b == 6:  # Zeller ile çıkan sayı 5 ise (perşembe) burayı kullanacak
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+
+                    for i in range(1, 2):
+                        print(f"{i}   ", end="")
+                    print("\033[31m2\033[0m   \033[31m3\033[0m   ")
+                    print()
+                    for f in range(4, 9):
+                        print(f"{f}   ", end="")
+                    print("\033[31m9\033[0m   \033[31m10\033[0m   ")
+                    print()
+                    for f in range(11, 16):
+                        print(f"{f}  ", end="")
+                    print("\033[31m16\033[0m  \033[31m17\033[0m  ")
+                    print()
+                    for f in range(18, 23):
+                        print(f"{f}  ", end="")
+                    print("\033[31m23\033[0m  \033[31m24\033[0m  ")
+                    print()
+                    print("25  26  27  28  ", end="")
+
+                    if z == 2:
+                        if c == 1:
+                            print("29  ", end="")
+                            b = b - 6
+                            break
+                        b = b
+                        break
+                    print("29  \033[31m30\033[0m  ", end="")
+
+                    if z in [1, 3, 5, 7, 8, 10, 12]:
+                                    print("\033[31m31\033[0m  ")
+                                    b -= 4
+                                
+                                    
+                    
+                    else:
+                                    b -= 5
+
+                    break
+
+            if b == 0:  # Zeller ile çıkan sayı 5 ise (perşembe) burayı kullanacak
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    for i in range(1, 3):
+                        print("\033[31m{}\033[0m   ".format(i), end="")
+                    print()
+                    for f in range(3, 8):
+                        print("{}   ".format(f), end="")
+                    print("\033[31m8\033[0m   ", "\033[31m9\033[0m   ")
+                    print()
+                    for f in range(10, 15):
+                        print("{}  ".format(f), end="")
+                    print("\033[31m15\033[0m  ", "\033[31m16\033[0m  ")
+                    print()
+                    for f in range(17, 22):
+                        print("{}  ".format(f), end="")
+                    print("\033[31m22\033[0m  ", "\033[31m23\033[0m  ")
+                    print()
+                    print("24  ", "25  ", "26  ", "27  ", "28  ")
+
+                    if z == 2:
+                        if c == 1:
+                            print("\033[31m29\033[0m  ", end="")
+                            b += 1
+                        break
+
+                    print("\033[31m29\033[0m  ", "\033[31m30\033[0m  ")
+
+                    if z in [1, 3, 5, 7, 8, 10, 12]:
+                        print()
+                        print("31  ")
+                        b += 3
+                    else:
+                        b += 2
+                    break
+
+
+            if b == 1:  # Zeller ile çıkan sayı 5 ise (perşembe) burayı kullanacak
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    print("    ", end="")
+                    for i in range(1, 2):
+                        print("\033[31m{}\033[0m   ".format(i), end="")
+                    print()
+                    for f in range(2, 7):
+                        print("{}   ".format(f), end="")
+                    print("\033[31m7\033[0m   ", "\033[31m8\033[0m   ")
+                    print()
+                    for f in range(9, 10):
+                        print("{}   ".format(f), end="")
+                    print("10  ", "11  ", "12  ", "13  ", "\033[31m14\033[0m  ", "\033[31m15\033[0m  ")
+                    print()
+                    for f in range(16, 21):
+                        print("{}  ".format(f), end="")
+                    print("\033[31m21\033[0m  ", "\033[31m22\033[0m  ")
+                    print()
+                    for f in range(23, 28):
+                        print("{}  ".format(f), end="")
+                    print("\033[31m28\033[0m  ")
+
+                    if z == 2:
+                        if c == 1:
+                            print("\033[31m29\033[0m  ", end="")
+                            b += 1
+                        # break
+                    print("\033[31m29\033[0m  ", "\n", "30  ")
+
+                    if z in [1, 3, 5, 7, 8, 10, 12]:
+                        print("31  ")
+                        b += 3
+                    else:
+                        b += 2
+                        
+                    break
+    
+    return 0
+
+import os
+
+while True:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("      \n\n\n\n\n")
+    print("\t\t", end="")
+    print(chr(201), end="")
+    for i in range(72):
+        print(chr(205), end="")
+    print(chr(187))
+
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{} \t\t                  TAKVIM        \t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t Devam etmek icin d veya D tusuna basiniz\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t     Cikmak icin ESC tusuna basiniz\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}\\t\t\t\t\t\t\t\t\t {}".format(chr(186), chr(186)))
+    print("\n\t\t{}".format(chr(200)), end="")
+    for a in range(72):
+        print(chr(205), end="")
+    print(chr(188))
+
+    secim = input()
+
+    if secim in ['d', 'D']:  # d tuşuna basarsa burdan devam
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("\n\n\n\n\n\t\t\t\t      TAKVIM PROGRAMI  ")
+        print("\n\t\t\t-------------------------------------------- ")
+        print("\n\t\t\t        takvim yili giriniz:\n\n\t\t\t                ")
+        sayi = int(input())
+
+        while sayi < 1910 or sayi > 2090 or sayi == 1910 or sayi == 2090:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("\n\n\n\n\n\t\t\t\t      TAKVIM PROGRAMI  ")
+            print("\n\t\t\t-------------------------------------------- ")
+            print("\n\t\t\t   Lutfen 1910-2090 arasi bir yil giriniz!\n\n\t\t\t                ")
+            print("\n\t\t\t        takvim yili giriniz:\n\n\t\t\t                ")
+            sayi = int(input())
+
+       # ... (previous code) ...
+
+        zeller = Zeller(1, 1, sayi)
+        takvim_olustur(zeller, subatkaccekiyor(sayi), sayi) # Changed function name to takvim_olustur
+
+        # ... (rest of the code) ...
+
+        print("\n\t\t\t        Ana ekrana donmek icin herhangi bir tusa basin.")
+        print("\n\t\t\t        Cikmak icin esc tusuna basin.")
+        secim = input()
+        if secim == chr(27):  # Esc tuşu
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("\n\n\n\n\n\t\t\t\t Cikmak istediginizden emin misiniz?(e/h)")
+
+            secim = input()
+            if secim in ['e', 'E']:
+                print("\n\n\t\t\t\t Islem basariyla gerceklesti lutfen herhangi bir tusa basin...\n\n\n\n")
+                break
+
+    elif secim == chr(27):  # esc bastığında burdan devam
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("\n\n\n\n\n\t\t\t\t Cikmak istediginizden emin misiniz?(e/h)")
+
+        secim = input()
+        if secim in ['e', 'E']:
+            print("\n\n\t\t\t\t Islem basariyla gerceklesti lutfen herhangi bir tusa basin...\n\n\n\n")
+            break
